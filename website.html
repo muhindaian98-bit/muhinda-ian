@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grade 11 IT - Interactive Web Activity</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Interactive JavaScript Showcase</h1>
+        <p id="greeting">Loading greeting...</p>
+    </header>
+
+    <main>
+        <section class="theme-switcher-section">
+            <h2>Theme Switcher</h2>
+            <p>Click the button to change the website theme.</p>
+            <button id="themeToggleBtn" class="primary-btn">Switch to Dark Mode</button>
+            <div id="themed-element">
+                <img src="placeholder.jpg" alt="A simple placeholder image" id="mainImage">
+            </div>
+        </section>
+
+        <hr>
+
+        <section class="form-section">
+            <h2>Contact Form with Validation</h2>
+            <form id="contactForm">
+                <label for="username">Username (Min 3 chars):</label>
+                <input type="text" id="username" name="username" required>
+                <small id="usernameError" class="error-message"></small>
+                
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <small id="emailError" class="error-message"></small>
+
+                <label for="message">Message:</label>
+                <textarea id="message" name="message"></textarea>
+                
+                <button type="submit" class="primary-btn submit-btn">Submit</button>
+            </form>
+            <p id="formStatus" class="status-message"></p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Grade 11 IT Assignment</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Real-time greeting
+        function setGreeting() {
+            const hour = new Date().getHours();
+            let greeting = '';
+            if (hour < 12) greeting = 'Good morning!';
+            else if (hour < 18) greeting = 'Good afternoon!';
+            else greeting = 'Good evening!';
+            document.getElementById('greeting').textContent = greeting;
+        }
+
+        // Theme switcher
+        document.getElementById('themeToggleBtn').addEventListener('click', function() {
+            document.body.classList.toggle('dark-mode');
+            this.textContent = document.body.classList.contains('dark-mode') ? 'Switch to Light Mode' : 'Switch to Dark Mode';
+        });
+
+        // Form validation
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            let isValid = true;
+
+            if (username.length < 3) {
+                document.getElementById('usernameError').textContent = 'Username must be at least 3 characters';
+                isValid = false;
+            } else {
+                document.getElementById('usernameError').textContent = '';
+            }
+
+            if (!email.includes('@')) {
+                document.getElementById('emailError').textContent = 'Please enter a valid email';
+                isValid = false;
+            } else {
+                document.getElementById('emailError').textContent = '';
+            }
+
+            if (isValid) {
+                document.getElementById('formStatus').textContent = 'Form submitted successfully!';
+                document.getElementById('formStatus').style.color = 'green';
+                this.reset();
+            }
+        });
+
+        setGreeting();
+    </script>
+    });
+
+});
+</body>
+</html>
